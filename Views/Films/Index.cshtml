@@ -1,0 +1,37 @@
+﻿@model IEnumerable<VideotekaApp.Models.Film>
+@{
+    ViewData["Title"] = "Seznam filmů";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Přidat nový film</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Název</th>
+            <th>Rok vydání</th>
+            <th>Žánr</th>
+            <th>Hodnocení</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var film in Model)
+{
+     <tr>
+          <td>@film.Title</td>
+          <td>@film.ReleaseYear</td>
+          <td>@film.Genre</td>
+          <td>@film.Rating</td>
+          <td>
+              <a asp-action="Edit" asp-route-id="@film.ID">Editovat</a> |
+              <a asp-action="Details" asp-route-id="@film.ID">Detaily</a> |
+              <a asp-action="Delete" asp-route-id="@film.ID">Smazat</a>
+          </td>
+     </tr>
+}
+    </tbody>
+</table>

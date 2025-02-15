@@ -1,0 +1,28 @@
+﻿@model VideotekaApp.Models.Film
+
+@{
+    ViewData["Title"] = "Smazat film";
+
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3>Opravdu chcete smazat tento film?</h3>
+
+<div>
+    <h4>@Model.Title</h4>
+    <dl class="row">
+        <dt class = "col-sm-2">Rok vydání</dt>
+        <dd class = "col-sm-10">@Model.ReleaseYear</dd>
+        <dt class = "col-sm-2">Žánr</dt>
+        <dd class = "col-sm-10">@Model.Genre</dd>
+        <dt class = "col-sm-2">Hodnocení</dt>
+        <dd class = "col-sm-10">@Model.Rating</dd>
+    </dl>
+</div>
+
+<form asp-action="DeleteConfirmed" asp-route-id="@Model.ID" method="post">
+    <input type="hidden" asp-for="ID" />
+    <input type="submit" value="Smazat" class="btn btn-danger" />
+    <button type="submit" class="btn btn-danger">Ano, smazat</button>  | <a asp-action="Index">Zrušit</a>
+</form>
