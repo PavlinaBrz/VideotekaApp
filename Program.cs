@@ -17,9 +17,13 @@ namespace VideotekaApp
             var builder = WebApplication.CreateBuilder(args); // Vytvoøení instance WebApplication
 
             // Naètení øetìzce pøipojení z appsettings.json a registrace DbContextu
-            builder.Services.AddDbContext<VideotekaContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("VideotekaConnection")));
-            
+            string connectionString = builder.Configuration.GetConnectionString("VideotekaConnection");
+
+            // Vypíše hodnotu connectionString, aby ovìøil, že není null
+            Console.WriteLine($"Connection string: {connectionString}");
+
+            builder.Services.AddDbContext<VideotekaContext>(options => options.UseSqlServer(connectionString));
+
             //  Pøidání služeb do kontejneru - MVC (Controller, View, Model)
             builder.Services.AddControllersWithViews();
 
