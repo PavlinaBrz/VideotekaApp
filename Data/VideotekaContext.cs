@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VideotekaApp.Models;
 
-/*Soubor definuje kontext databáze, který popojují modely s databází.
- * Kontext databáze je odvozen z třídy DbContext, která je součástí Entity Framework Core.
- */
+/// <summary>
+/// Soubor definuje kontext databáze, který propojuje modely s databází.
+/// Kontext databáze je odvozen z třídy DbContext, která je součástí Entity Framework Core - posyktuje DbSet pro entitu Film a konfiguraci modelu.
+/// </summary>
 
 namespace VideotekaApp.Data
 {

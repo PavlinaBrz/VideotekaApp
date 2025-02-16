@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-/*
-  Tøída Film obsahuje atributy, které jsou vyuity pro vytvoøení tabulky v databázi.
-  Atributy obsahují rùzné validace, které zajišují, e vstupní data splòují poadavky.
-  Atribut Display(Name = "Název filmu") slouí k pøejmenování sloupce v tabulce.
-*/
+/// <summary>
+/// Tøída Film obsahuje atributy, které jsou vyuity pro vytvoøení tabulky v databázi. Atributy obsahují rùzné validace, které zajišují,
+/// e vstupní data splòují poadavky. Atribut Display(Name = "Název filmu") slouí k pøejmenování sloupce v tabulce.
+/// </summary>
 
 namespace VideotekaApp.Models
 {

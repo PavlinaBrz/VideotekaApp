@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NováSložka1\**" />
+    <Compile Remove="NováSložka\**" />
+    <Compile Remove="Views\Home\**" />
+    <Content Remove="NováSložka1\**" />
+    <Content Remove="NováSložka\**" />
+    <Content Remove="Views\Home\**" />
+    <EmbeddedResource Remove="NováSložka1\**" />
+    <EmbeddedResource Remove="NováSložka\**" />
+    <EmbeddedResource Remove="Views\Home\**" />
+    <None Remove="NováSložka1\**" />
+    <None Remove="NováSložka\**" />
+    <None Remove="Views\Home\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
@@ -14,6 +29,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="docs\" />
   </ItemGroup>
 
 </Project>

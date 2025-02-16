@@ -1,11 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using VideotekaApp.Data;
 
-/* 
-    Program.cs - soubor, který obsahuje vstupní bod aplikace. 
-    Vytvoøíme zde instanci WebApplication, která obsahuje konfiguraci a služby aplikace.
-    V metodì Main() se konfiguruje HTTP požadavek a spouští se aplikace.
-*/
+/// <summary> Program.cs - soubor, který obsahuje vstupní bod aplikace. Vytvoøíme zde instanci WebApplication, která obsahuje konfiguraci a služby aplikace.
+/// V metodì Main() se konfiguruje HTTP požadavek a spouští se aplikace.
+/// </summary>
 
 namespace VideotekaApp
 {

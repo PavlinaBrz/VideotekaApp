@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using VideotekaApp.Models;
 using VideotekaApp.Data;
 
-/*Soubor obsahuje kontroler pro správu filmù. Kontroler je tøída, která zpracovává požadavky uživatele a reaguje na nì.
- * Kontroler je souèástí architektury MVC (Model-View-Controller) a zpracovává požadavky uživatele, zpracovává data a vrací výsledky.
- * Kontroler je odvozen z tøídy Controller, která je souèástí ASP.NET Core MVC.
- */
+/// <summary>
+/// Soubor obsahuje kontroler pro správu filmù. Kontroler je tøída, která zpracovává HTTP požadavky uživatele, je souèástí 
+/// architektury MVC (Model-View-Controller) - zpracovává požadavky, data a vrací výsledky. Kontroler je odvozen z tøídy Controller,
+/// která je souèástí ASP.NET Core MVC.
+/// </summary>
 
 namespace VideotekaApp.Controllers.Films;
 
