@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using VideotekaApp.Data;
 
 /* 
@@ -16,18 +15,25 @@ namespace VideotekaApp
         {
             var builder = WebApplication.CreateBuilder(args); // Vytvoøení instance WebApplication
 
-            // Naètení øetìzce pøipojení z appsettings.json a registrace DbContextu
+            // Naètení øetìzce pøipojení z appsettings.json
             string connectionString = builder.Configuration.GetConnectionString("VideotekaConnection");
 
-            // Vypíše hodnotu connectionString, aby ovìøil, že není null
-            Console.WriteLine($"Connection string: {connectionString}");
-
-            builder.Services.AddDbContext<VideotekaContext>(options => options.UseSqlServer(connectionString));
+            // Konfigurace SQLite databáze
+            builder.Services.AddDbContext<VideotekaContext>(options =>
+                options.UseSqlite(connectionString));
 
             //  Pøidání služeb do kontejneru - MVC (Controller, View, Model)
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+
+            // Vytvoøení databáze pøi startu aplikace
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<VideotekaContext>();
+                context.Database.EnsureCreated();
+            }
 
             // Konfigurace HTTP požadavku
             if (!app.Environment.IsDevelopment())
