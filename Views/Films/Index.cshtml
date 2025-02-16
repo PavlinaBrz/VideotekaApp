@@ -14,7 +14,7 @@
             <th>Název</th>
             <th>Rok vydání</th>
             <th>Žánr</th>
-            <th>Hodnocení</th>
+            <th>Hodnocení (nejnižší 1 - nevyšší 10)</th>
             <th></th>
         </tr>
     </thead>
@@ -28,7 +28,6 @@
           <td>@film.Rating</td>
           <td>
               <a asp-action="Edit" asp-route-id="@film.ID">Editovat</a> |
-              <a asp-action="Details" asp-route-id="@film.ID">Detaily</a> |
               <a asp-action="Delete" asp-route-id="@film.ID">Smazat</a>
           </td>
      </tr>

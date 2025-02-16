@@ -7,10 +7,10 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<h3>Opravdu chcete smazat tento film?</h3>
+<h4>Opravdu chcete smazat tento film?</h4>
 
 <div>
-    <h4>@Model.Title</h4>
+    <h5>@Model.Title</h5>
     <dl class="row">
         <dt class = "col-sm-2">Rok vydání</dt>
         <dd class = "col-sm-10">@Model.ReleaseYear</dd>
@@ -23,6 +23,5 @@
 
 <form asp-action="DeleteConfirmed" asp-route-id="@Model.ID" method="post">
     <input type="hidden" asp-for="ID" />
-    <input type="submit" value="Smazat" class="btn btn-danger" />
-    <button type="submit" class="btn btn-danger">Ano, smazat</button>  | <a asp-action="Index">Zrušit</a>
+    <button type="submit" class="btn btn-danger">Ano, smazat</button>   <button type="submit" class="btn btn-danger" a asp-action="Index">Zrušit</button>
 </form>
