@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using VideotekaApp.Data;
 using VideotekaApp.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace VideotekaApp.Pages.Films
@@ -19,13 +21,29 @@ namespace VideotekaApp.Pages.Films
         [BindProperty]
         public Film Film { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public List<SelectListItem> GenreList { get; set; } = new()
         {
-            Film = await _context.Films.FindAsync(id);
+            new SelectListItem { Value = "Akční", Text = "Akční" },
+            new SelectListItem { Value = "Komedie", Text = "Komedie" },
+            new SelectListItem { Value = "Drama", Text = "Drama" },
+            new SelectListItem { Value = "Horor", Text = "Horor" },
+            new SelectListItem { Value = "Animovaný", Text = "Animovaný" },
+            // ... další žánry
+        };
 
-            if (Film == null)
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
             {
-                return NotFound();
+                Film = new Film(); // Nový film (vytváření)
+            }
+            else
+            {
+                Film = await _context.Films.FindAsync(id);
+                if (Film == null)
+                {
+                    return NotFound();
+                }
             }
             return Page();
         }

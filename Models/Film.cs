@@ -22,7 +22,7 @@ namespace VideotekaApp.Models
         public int ReleaseYear { get; set; }
 
         [Required(ErrorMessage = "Žánr filmu je povinný")]
-        [StringLength(30, MinimumLength = 3, ErrorMessage = "Žánr filmu musí být v rozmezí 3 a 30 znaky")]
+        [StringLength(30, ErrorMessage = "Žánr filmu mùže mít maximálnì 30 znakù")]
         [Display(Name = "Žánr filmu")]  // Zmìna názvu sloupce v tabulce
         public string Genre { get; set; }
 

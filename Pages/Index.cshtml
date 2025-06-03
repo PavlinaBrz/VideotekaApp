@@ -1,4 +1,12 @@
 ﻿@page
-@functions {
-    public IActionResult OnGet() => RedirectToPage("/Films/Index");
+@{
+    ViewData["Title"] = "Vítejte ve Videotéce";
 }
+
+<div style="background: #141414; color: #fff; padding: 2rem; border-radius: 1rem;">
+    <div class="text-center">
+        <img src="~/images/uvodni_obrazek.png" alt="Filmová databáze" class="img-fluid rounded shadow" style="max-height: 350px;" />
+        <h1 class="mt-4">Vítejte ve Videotéce</h1>
+        <p class="lead">Objevujte, hodnoťte a spravujte své oblíbené filmy.</p>
+    </div>
+</div>

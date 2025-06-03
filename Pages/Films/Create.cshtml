@@ -15,17 +15,23 @@
     </div>
     <div class="form-group">
         <label asp-for="Film.ReleaseYear"></label>
-        <input asp-for="Film.ReleaseYear" class="form-control" />
+        <input asp-for="Film.ReleaseYear" class="form-control" type="number" min="1900" max="2025" />
         <span asp-validation-for="Film.ReleaseYear" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Film.Genre"></label>
-        <input asp-for="Film.Genre" class="form-control" />
+        <select asp-for="Film.Genre" class="form-control" asp-items="Model.GenreList"></select>
         <span asp-validation-for="Film.Genre" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Film.Rating"></label>
-        <input asp-for="Film.Rating" class="form-control" />
+        <label>Hodnocení</label>
+        <div class="star-rating">
+            @for (int i = 10; i >= 1; i--)
+            {
+                <input type="radio" id="rating-@i" name="Film.Rating" value="@i" @(Model.Film.Rating == i ? "checked" : "") />
+                <label for="rating-@i" title="@i hvězdiček">&#9733;</label>
+            }
+        </div>
         <span asp-validation-for="Film.Rating" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-success">Uložit</button>

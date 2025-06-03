@@ -7,26 +7,20 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/VideotekaApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/star-rating.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold" asp-page="/Films/Index">VideotekaApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-page="/Index">VideotekaApp</a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Films/Index") ? "active" : "")" asp-page="/Films/Index">Seznam filmů</a>
+                            <a class="nav-link text-dark" asp-page="/Films/Index">Seznam filmů</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Films/Create") ? "active" : "")" asp-page="/Films/Create">Přidat film</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Films/Statistics") ? "active" : "")" asp-page="/Films/Statistics">Statistika</a>
+                            <a class="nav-link text-dark" asp-page="/Films/Statistics">Statistiky</a>
                         </li>
                     </ul>
                 </div>

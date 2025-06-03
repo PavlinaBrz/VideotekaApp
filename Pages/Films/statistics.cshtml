@@ -1,0 +1,55 @@
+﻿@page
+@model VideotekaApp.Pages.Films.StatisticsModel
+@{
+    ViewData["Title"] = "Statistika";
+}
+
+<h1>Statistika</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Celkový počet filmů</div>
+            <div class="card-body">
+                <h3 class="card-title">@Model.TotalCount</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Průměrné hodnocení</div>
+            <div class="card-body">
+                <h3 class="card-title">@Model.AverageRating.ToString("0.0")</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Nejnovější film</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.LatestFilm?.Title </h5>
+                <p class="card-text">@Model.LatestFilm?.ReleaseYear</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Další statistiky, např. tabulka žánrů -->
+<h2>Počet filmů podle žánru</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Žánr</th>
+            <th>Počet</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var genre in Model.FilmsByGenre)
+        {
+            <tr>
+                <td>@genre.Genre</td>
+                <td>@genre.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
