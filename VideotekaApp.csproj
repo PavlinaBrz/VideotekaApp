@@ -7,18 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
     <Compile Remove="NováSložka1\**" />
     <Compile Remove="NováSložka\**" />
-    <Compile Remove="Views\Home\**" />
+    <Compile Remove="Pages\Home\**" />
+    <Content Remove="Controllers\**" />
     <Content Remove="NováSložka1\**" />
     <Content Remove="NováSložka\**" />
-    <Content Remove="Views\Home\**" />
+    <Content Remove="Pages\Home\**" />
+    <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="NováSložka1\**" />
     <EmbeddedResource Remove="NováSložka\**" />
-    <EmbeddedResource Remove="Views\Home\**" />
+    <EmbeddedResource Remove="Pages\Home\**" />
+    <None Remove="Controllers\**" />
     <None Remove="NováSložka1\**" />
     <None Remove="NováSložka\**" />
-    <None Remove="Views\Home\**" />
+    <None Remove="Pages\Home\**" />
   </ItemGroup>
 
   <ItemGroup>

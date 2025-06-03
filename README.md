@@ -1,7 +1,7 @@
 # VideotekaApp
 
 **VideotekaApp*
-** Jednoduchá webová aplikace postavená na ASP.NET Core MVC a Entity Framework Core s vyuitím databáze SQLite. 
+** Jednoduchá webová aplikace postavená na Razor Pages a Entity Framework Core s vyuitím databáze SQLite. 
 ** Aplikace slouí k evidenci filmù, pøièem pro kadı film se uchovávají následující údaje:*
 - **Název filmu**
 - **Rok vydání**
@@ -17,7 +17,7 @@
 
 
 ## Pouité technologie
-- **ASP.NET Core MVC** – pro webové rozhraní a zpracování HTTP poadavkù.
+- **Razor Pages** – pro webové rozhraní a zpracování HTTP poadavkù.
 - **Entity Framework Core** – pro pøístup k databázi (Code First pøístup).
 - **SQLite** – jako databázové øešení (øetìzec pøipojení: `Data Source=VideotékaDb.sqlite`).
 - **C#** – programovací jazyk.
@@ -33,7 +33,7 @@
 	dotnet restore
 
 3. Spuštìní databázového kontextu:
-   Pøi spuštìní aplikace se databáze automaticky vytvoøí díky volání Database.EnsureCreated() v kontextu.
+   Pøi spuštìní aplikace se databáze automaticky vytvoøí díky migracím.
 
 4. Spuštìní aplikace:
    Ve Visual Studiu stisknìte F5 nebo z pøíkazové øádky spuste:

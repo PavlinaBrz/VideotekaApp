@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using VideotekaApp.Data;
+using Microsoft.Extensions.Logging;
 
 /// <summary> Program.cs - soubor, který obsahuje vstupní bod aplikace. Vytvoøíme zde instanci WebApplication, která obsahuje konfiguraci a služby aplikace.
 /// V metodì Main() se konfiguruje HTTP požadavek a spouští se aplikace.
@@ -7,7 +8,7 @@ using VideotekaApp.Data;
 
 namespace VideotekaApp
 {
-    public class Program 
+    public class Program
     {
         public static void Main(string[] args)
         {
@@ -20,17 +21,25 @@ namespace VideotekaApp
             builder.Services.AddDbContext<VideotekaContext>(options =>
                 options.UseSqlite(connectionString));
 
-            //  Pøidání služeb do kontejneru - MVC (Controller, View, Model)
-            builder.Services.AddControllersWithViews();
+            //  Pøidání služeb do kontejneru
+            builder.Services.AddRazorPages(); // Pøidání Razor Pages
 
             var app = builder.Build();
 
-            // Vytvoøení databáze pøi startu aplikace
+            // Inicializace databáze s migracemi a logováním chyb
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<VideotekaContext>();
-                context.Database.EnsureCreated();
+                try
+                {
+                    var context = services.GetRequiredService<VideotekaContext>();
+                    context.Database.Migrate(); // Použijte migrace místo EnsureCreated
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Chyba pøi migraci databáze.");
+                }
             }
 
             // Konfigurace HTTP požadavku
@@ -48,9 +57,11 @@ namespace VideotekaApp
             app.UseAuthorization();
 
             // Nastavení výchozí cesty (routy) - aplikace se spustí v controlleru Films a akci Index
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Films}/{action=Index}/{id?}");
+            // app.MapControllerRoute(
+               // name: "default",
+               // pattern: "{controller=Films}/{action=Index}/{id?}");
+
+            app.MapRazorPages(); // Mapování Razor Pages
 
             app.Run();  // Spuštìní aplikace
         }

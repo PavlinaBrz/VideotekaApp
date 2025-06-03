@@ -1,0 +1,26 @@
+﻿@page "{id:int}"
+@model VideotekaApp.Pages.Films.DeleteModel
+@{
+    ViewData["Title"] = "Smazat film";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3>Opravdu chcete smazat tento film?</h3>
+<div>
+    <h4>@Model.Film.Title</h4>
+    <dl class="row">
+        <dt class="col-sm-2">Rok vydání</dt>
+        <dd class="col-sm-10">@Model.Film.ReleaseYear</dd>
+        <dt class="col-sm-2">Žánr</dt>
+        <dd class="col-sm-10">@Model.Film.Genre</dd>
+        <dt class="col-sm-2">Hodnocení</dt>
+        <dd class="col-sm-10">@Model.Film.Rating</dd>
+    </dl>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Film.ID" />
+    <button type="submit" class="btn btn-danger">Smazat</button>
+    <a asp-page="Index" class="btn btn-secondary">Zpět</a>
+</form>

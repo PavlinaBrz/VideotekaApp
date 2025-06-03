@@ -1,0 +1,39 @@
+﻿@page "{id:int}"
+@model VideotekaApp.Pages.Films.EditModel
+@{
+    ViewData["Title"] = "Upravit film";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Film.ID" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Film.Title"></label>
+        <input asp-for="Film.Title" class="form-control" />
+        <span asp-validation-for="Film.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Film.ReleaseYear"></label>
+        <input asp-for="Film.ReleaseYear" class="form-control" />
+        <span asp-validation-for="Film.ReleaseYear" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Film.Genre"></label>
+        <input asp-for="Film.Genre" class="form-control" />
+        <span asp-validation-for="Film.Genre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Film.Rating"></label>
+        <input asp-for="Film.Rating" class="form-control" />
+        <span asp-validation-for="Film.Rating" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Uložit změny</button>
+    <a asp-page="Index" class="btn btn-secondary">Zpět</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

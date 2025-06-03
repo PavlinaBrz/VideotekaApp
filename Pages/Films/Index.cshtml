@@ -1,0 +1,45 @@
+﻿@page
+@model VideotekaApp.Pages.Films.IndexModel
+@{
+    ViewData["Title"] = "Seznam filmů";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Přidat nový film</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Název</th>
+            <th>Rok vydání</th>
+            <th>Žánr</th>
+            <th>Hodnocení</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var film in Model.Films)
+        {
+            <tr>
+                <td>@film.Title</td>
+                <td>@film.ReleaseYear</td>
+                <td>@film.Genre</td>
+                <td>@film.Rating</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@film.ID" class="btn btn-sm btn-warning">Upravit</a>
+                    <a asp-page="Delete" asp-route-id="@film.ID" class="btn btn-sm btn-danger" onclick="return confirm('Opravdu chcete smazat tento film?');">Smazat</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination">
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <a asp-page="./Index" asp-route-pageIndex="@i" class="btn @(i == Model.CurrentPage ? "btn-primary" : "btn-outline-primary")">@i</a>
+    }
+</div>

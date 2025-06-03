@@ -13,7 +13,7 @@ namespace VideotekaApp.Data
         public VideotekaContext(DbContextOptions<VideotekaContext> options) : base(options) // Konstruktor třídy
         {
             // Zajistíme, že databáze bude vytvořena při prvním použití
-            Database.EnsureCreated();
+            // Database.EnsureCreated();
         }
 
         // Vlastnosti, které reprezentují tabulku v databázi
