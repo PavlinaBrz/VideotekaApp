@@ -1,55 +1,181 @@
 ﻿@page
 @model VideotekaApp.Pages.Films.StatisticsModel
 @{
-    ViewData["Title"] = "Statistika";
+    ViewData["Title"] = "Statistiky";
 }
 
-<h1>Statistika</h1>
+<h1 class="mb-4">@ViewData["Title"]</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="card text-white bg-primary mb-3">
-            <div class="card-header">Celkový počet filmů</div>
+<!-- Přehledové boxy -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm stat-card">
             <div class="card-body">
-                <h3 class="card-title">@Model.TotalCount</h3>
+                <h6 class="card-title">Počet filmů</h6>
+                <p class="display-6">@Model.TotalCount</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-success mb-3">
-            <div class="card-header">Průměrné hodnocení</div>
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm stat-card">
             <div class="card-body">
-                <h3 class="card-title">@Model.AverageRating.ToString("0.0")</h3>
+                <h6 class="card-title">Průměrné hodnocení</h6>
+                <p class="display-6">@Model.AverageRating.ToString("0.0")</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-info mb-3">
-            <div class="card-header">Nejnovější film</div>
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm stat-card">
             <div class="card-body">
-                <h5 class="card-title">@Model.LatestFilm?.Title </h5>
-                <p class="card-text">@Model.LatestFilm?.ReleaseYear</p>
+                <h6 class="card-title">Nejnovější film</h6>
+                <p class="mb-0">@Model.LatestFilm?.Title</p>
+                <small class="text-muted">@Model.LatestFilm?.ReleaseYear</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm stat-card">
+            <div class="card-body">
+                <h6 class="card-title">Počet žánrů</h6>
+                <p class="display-6">@Model.FilmsByGenre.Count</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Další statistiky, např. tabulka žánrů -->
-<h2>Počet filmů podle žánru</h2>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Žánr</th>
-            <th>Počet</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var genre in Model.FilmsByGenre)
-        {
-            <tr>
-                <td>@genre.Genre</td>
-                <td>@genre.Count</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <canvas id="genrePieChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title">TOP 3 filmy podle hodnocení</h5>
+                <ol class="mb-0">
+                    @foreach (var film in Model.TopRatedFilms)
+                    {
+                        <li>@film.Title (@film.ReleaseYear) – <strong>@film.Rating</strong></li>
+                    }
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <canvas id="genreYearChart" height="120"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script>
+        // Pie chart - žánry (beze změny)
+        const genreLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.FilmsByGenre.Select(g => g.Genre)));
+        const genreCounts = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.FilmsByGenre.Select(g => g.Count)));
+        const pieColors = [
+            '#4e79a7', '#f28e2b', '#e15759', '#76b7b2',
+            '#59a14f', '#edc949', '#af7aa1', '#ff9da7',
+            '#9c755f', '#bab0ab'
+        ];
+        new Chart(document.getElementById('genrePieChart'), {
+            type: 'pie',
+            data: {
+                labels: genreLabels,
+                datasets: [{
+                    data: genreCounts,
+                    backgroundColor: pieColors
+                }]
+            },
+            options: {
+                plugins: {
+                    title: { display: true, text: 'Podíl žánrů' }
+                }
+            }
+        });
+
+        // Bar chart - žánr/rok/hodnocení s tooltipem s názvem filmu
+        const genres = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Genres));
+        const years = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Years));
+        const data = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.FilmsByGenreYear));
+        const barColors = [
+            '#4e79a7', '#f28e2b', '#e15759', '#76b7b2',
+            '#59a14f', '#edc949', '#af7aa1', '#ff9da7',
+            '#9c755f', '#bab0ab'
+        ];
+        const datasets = years.map((year, idx) => ({
+            label: year,
+            data: genres.map(genre => {
+                const found = data.find(d => d.Genre === genre && d.Year === year);
+                return found ? found.AverageRating : null;
+            }),
+            backgroundColor: barColors[idx % barColors.length] // Každý rok má svou barvu
+        }));
+
+        new Chart(document.getElementById('genreYearChart'), {
+            type: 'bar',
+            data: {
+                labels: genres,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 20,
+                            padding: 20,
+                            font: { size: 14 }
+                        }
+                    },
+                    title: { 
+                        display: true,
+                        text: 'Průměrné hodnocení filmů podle žánru a roku vydání',
+                            padding: {
+                                top: 20,    // větší mezera nad titulkem
+                                bottom: 50,  // větší mezera pod titulkem
+                            font: { size: 18 }
+                            }
+                    },
+                    datalabels: {
+                        display: function(context) {
+                            return context.dataset.data[context.dataIndex] !== null;
+                        },
+                        align: 'end',
+                        anchor: 'end',
+                        font: { weight: 'bold' },
+                        color: '#333',
+                        formatter: function(value, context) {
+                            return ""; // nezobrazi nic nad sloupcem //context.dataset.label;
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                // Najdi film podle žánru a roku
+                                const genre = context[0].label;
+                                const year = context[0].dataset.label;
+                                const found = data.find(d => d.Genre === genre && d.Year === year);
+                                if (found) {
+                                    return found.Title + " (" + found.Year + ")";
+                                }
+                                return genre + " (" + year + ")";
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 10 }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    </script>
+}

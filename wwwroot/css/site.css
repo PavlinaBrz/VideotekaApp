@@ -19,4 +19,13 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 1rem;
+}
+
+.table th, .table td {
+    vertical-align: middle;
 }

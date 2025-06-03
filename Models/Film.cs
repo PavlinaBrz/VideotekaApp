@@ -27,7 +27,7 @@ namespace VideotekaApp.Models
         public string Genre { get; set; }
 
         [Required(ErrorMessage = "Hodnocení filmu je povinné")]
-        [Range(1, 10, ErrorMessage = "Hodnocení filmu musí být v rozmezí 1 a 10")]
+        [Range(1, 10, ErrorMessage = "Hodnocení filmu musí být v rozmezí 1 až 10")]
         [Display(Name = "Hodnocení filmu")]  // Zmìna názvu sloupce v tabulce
         public int Rating { get; set; }
     }

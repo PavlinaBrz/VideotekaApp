@@ -3,10 +3,11 @@
     ViewData["Title"] = "Vítejte ve Videotéce";
 }
 
-<div style="background: #141414; color: #fff; padding: 2rem; border-radius: 1rem;">
-    <div class="text-center">
-        <img src="~/images/uvodni_obrazek.png" alt="Filmová databáze" class="img-fluid rounded shadow" style="max-height: 350px;" />
-        <h1 class="mt-4">Vítejte ve Videotéce</h1>
-        <p class="lead">Objevujte, hodnoťte a spravujte své oblíbené filmy.</p>
+<div class="hero-section position-relative text-center text-white mb-4">
+    <img src="~/images/obrazek_uvod.png" alt="Filmová databáze" class="hero-img w-100" />
+    <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+        <h1 class="display-3 mb-3">Vítejte ve Videotéce</h1>
+        <p class="lead mb-4">Objevujte, hodnoťte a spravujte své oblíbené filmy v moderní aplikaci.</p>
+        <a asp-page="/Films/Index" class="btn btn-primary btn-lg shadow">Zobrazit seznam filmů</a>
     </div>
 </div>

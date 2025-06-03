@@ -4,52 +4,66 @@
     ViewData["Title"] = "Seznam filmů";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="mb-4">@ViewData["Title"]</h1>
 
-<form method="get" class="mb-3">
-    <select name="genre" class="form-select" onchange="this.form.submit()">
-        <option value="">Všechny žánry</option>
-        @foreach (var genre in Model.AllGenres)
-        {
-            <option value="@genre" selected="@(Model.SelectedGenre == genre ? "selected" : null)">@genre</option>
-        }
-    </select>
-</form>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <form method="get" class="d-flex align-items-center gap-2 mb-0">
+        <select name="genre" class="form-select" onchange="this.form.submit()">
+            <option value="">Všechny žánry</option>
+            @foreach (var genre in Model.AllGenres)
+            {
+                <option value="@genre" selected="@(Model.SelectedGenre == genre ? "selected" : null)">@genre</option>
+            }
+        </select>
+    </form>
+    <a asp-page="Create" class="btn btn-success shadow-sm">+ Přidat nový film</a>
+</div>
 
-<p>
-    <a asp-page="Create" class="btn btn-primary">Přidat nový film</a>
-</p>
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover table-striped mb-0 align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Název</th>
+                    <th>Rok vydání</th>
+                    <th>Žánr</th>
+                    <th>Hodnocení</th>
+                    <th class="text-end"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var film in Model.Films)
+                {
+                    <tr>
+                        <td>@film.Title</td>
+                        <td>@film.ReleaseYear</td>
+                        <td>@film.Genre</td>
+                        <td>
+                            <span class="text-warning rating-stars">
+                                @for (int star = 1; star <= film.Rating; star++)
+                                {
+                                    @:&#9733;
+                                }
+                                @for (int empty = film.Rating + 1; empty <= 10; empty++)
+                                {
+                                    @:<span class="empty">&#9733;</span>
+                                }
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            <a asp-page="Edit" asp-route-id="@film.ID" class="btn btn-sm btn-outline-warning me-1">Upravit</a>
+                            <a asp-page="Delete" asp-route-id="@film.ID" class="btn btn-sm btn-outline-danger" onclick="return confirm('Opravdu chcete smazat tento film?');">Smazat</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Název</th>
-            <th>Rok vydání</th>
-            <th>Žánr</th>
-            <th>Hodnocení</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var film in Model.Films)
-        {
-            <tr>
-                <td>@film.Title</td>
-                <td>@film.ReleaseYear</td>
-                <td>@film.Genre</td>
-                <td>@film.Rating</td>
-                <td>
-                    <a asp-page="Edit" asp-route-id="@film.ID" class="btn btn-sm btn-warning">Upravit</a>
-                    <a asp-page="Delete" asp-route-id="@film.ID" class="btn btn-sm btn-danger" onclick="return confirm('Opravdu chcete smazat tento film?');">Smazat</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div class="pagination">
+<div class="pagination mt-4">
     @for (int i = 1; i <= Model.TotalPages; i++)
     {
-        <a asp-page="./Index" asp-route-pageIndex="@i" class="btn @(i == Model.CurrentPage ? "btn-primary" : "btn-outline-primary")">@i</a>
+        <a asp-page="./Index" asp-route-pageIndex="@i" class="btn @(i == Model.CurrentPage ? "btn-primary" : "btn-outline-primary") me-1">@i</a>
     }
 </div>
