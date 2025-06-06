@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using VideotekaApp.Data;
 using VideotekaApp.Models;
-using System.Threading.Tasks;
 
 namespace VideotekaApp.Pages.Films
 {
@@ -36,12 +35,12 @@ namespace VideotekaApp.Pages.Films
                 return NotFound();
             }
 
-            var filmToDelete = await _context.Films.FindAsync(Film.ID);
+            Film? filmToDelete = await _context.Films.FindAsync(Film.ID);
 
             if (filmToDelete != null)
             {
-                _context.Films.Remove(filmToDelete);
-                await _context.SaveChangesAsync();
+                _ = _context.Films.Remove(filmToDelete);
+                _ = await _context.SaveChangesAsync();
             }
 
             return RedirectToPage("Index");

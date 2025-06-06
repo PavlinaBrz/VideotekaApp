@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - VideotekaApp</title>
+    <!-- Google Fonts pro Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/VideotekaApp.styles.css" asp-append-version="true" />
@@ -12,16 +14,29 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2C3E50;">
             <div class="container">
-                <a class="navbar-brand" asp-page="/Index">VideotekaApp</a>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <a class="navbar-brand d-flex align-items-center" asp-page="/Index">
+                    <img src="~/images/logo.png" alt="Logo" class="navbar-logo me-2" />
+                    <span class="fw-bold" style="font-size: 1.5rem;"></span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Přepnout navigaci">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Films/Index">Seznam filmů</a>
+                            <a class="nav-link navbar-link-light @(ViewContext.ActionDescriptor.DisplayName.Contains("/Films/Index") ? "active" : "")"
+                               asp-page="/Films/Index">Filmy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Films/Statistics">Statistiky</a>
+                            <a class="nav-link navbar-link-light @(ViewContext.ActionDescriptor.DisplayName.Contains("/Films/Index") ? "active" : "")"
+                               asp-page="/Films/Statistics">Statistiky</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link navbar-link-light @(ViewContext.ActionDescriptor.DisplayName.Contains("/Films/Index") ? "active" : "")"
+                               asp-page="/Films/Rankings">Žebříček</a>
                         </li>
                     </ul>
                 </div>
@@ -34,9 +49,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted mt-4">
+    <footer class="bg-light" style="background-color: #ECF0F1;">
         <div class="container text-center">
-            &copy; 2025 Pavlína Brzobohatá - VideotekaApp
+            <small style="color: #7F8C8D;">© 2025 Videotéka Pavlína Brzobohatá
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

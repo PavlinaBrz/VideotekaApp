@@ -2,21 +2,16 @@
     font-size: 1.2em;
 }
 
-    .rating-stars .empty {
-        color: #ccc;
-    }
+.rating-stars .empty {
+    color: #ccc;
+}
 .stat-card {
     min-height: 160px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.stat-card {
-    min-height: 130px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+
 .hero-section {
     min-height: 400px;
     max-height: 600px;

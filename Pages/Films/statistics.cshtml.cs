@@ -2,9 +2,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VideotekaApp.Data;
 using VideotekaApp.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace VideotekaApp.Pages.Films
 {
@@ -54,7 +51,7 @@ namespace VideotekaApp.Pages.Films
 
         public async Task OnGetAsync()
         {
-            var films = await _context.Films.AsNoTracking().ToListAsync();
+            List<Film> films = await _context.Films.AsNoTracking().ToListAsync();
 
             TotalCount = films.Count;
             AverageRating = films.Count > 0 ? films.Average(f => f.Rating) : 0;

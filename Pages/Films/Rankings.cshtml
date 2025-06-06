@@ -1,0 +1,58 @@
+﻿@page
+@model VideotekaApp.Pages.Films.RankingsModel
+@{
+    ViewData["Title"] = "Můj žebříček filmů";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" asp-page-handler="Add" class="mb-4 d-flex align-items-center gap-2">
+    <select name="addFilmID" class="form-select" style="max-width:300px;">
+        <option value="">-- Vyberte film k přidání --</option>
+        @foreach (var film in Model.AvailableFilms)
+        {
+            <option value="@film.ID">@film.Title</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-danger">Přidat do žebříčku</button>
+</form>
+
+@if (Model.UserRankings.Count == 0)
+{
+    <p>Nemáte žádné filmy v žebříčku.</p>
+}
+else
+{
+    <form method="post" asp-page-handler="SaveOrder">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Pořadí</th>
+                    <th>Název filmu</th>
+                    <th>Změnit pořadí</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.UserRankings)
+                {
+                    <tr>
+                        <td>@item.Position</td>
+                        <td>@item.Film.Title</td>
+                        <td>
+                            <input type="number" name="positions[@item.FilmID]" value="@item.Position" min="1" max="@Model.UserRankings.Count" class="form-control" />
+                        </td>
+                        <td class="text-center align-middle">
+                            <form method="post" asp-page-handler="Delete" asp-route-filmId="@item.FilmID" style="display:inline;">
+                                <button type="submit" class="btn btn-link text-danger p-0" title="Odebrat">
+                                    &#10006;
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-danger">Uložit pořadí</button>
+    </form>
+}

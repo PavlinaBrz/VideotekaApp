@@ -14,8 +14,8 @@ namespace VideotekaApp.Models
         [Required(ErrorMessage = "Název filmu je povinnı")]  // Required a Range (atributy) zajišují, e vstupní data splòují poadavky
         [StringLength(60, MinimumLength = 2, ErrorMessage = "Délka názvu filmu musí bıt v rozmezí 2 - 60 znakù")]
         [Display(Name = "Název filmu")]  // Zmìna názvu sloupce v tabulce
-        public string Title { get; set; } 
-        
+        public string Title { get; set; }
+
         [Required(ErrorMessage = "Rok vydání filmu je povinnı")]
         [Range(1900, 2025, ErrorMessage = "Rok vydání filmu musí bıt mezi 1900 a 2025")]
         [Display(Name = "Rok vydání")]  // Zmìna názvu sloupce v tabulce

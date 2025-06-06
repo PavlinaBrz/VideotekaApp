@@ -38,5 +38,7 @@
   <ItemGroup>
     <Folder Include="docs\" />
   </ItemGroup>
-
+    <ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2" PrivateAssets="all" />
+	</ItemGroup>
 </Project>

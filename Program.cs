@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using VideotekaApp.Data;
-using Microsoft.Extensions.Logging;
 
 /// <summary> Program.cs - soubor, který obsahuje vstupní bod aplikace. Vytvoøíme zde instanci WebApplication, která obsahuje konfiguraci a služby aplikace.
 /// V metodì Main() se konfiguruje HTTP požadavek a spouští se aplikace.
@@ -12,32 +11,32 @@ namespace VideotekaApp
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args); // Vytvoøení instance WebApplication
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args); // Vytvoøení instance WebApplication
 
             // Naètení øetìzce pøipojení z appsettings.json
             string connectionString = builder.Configuration.GetConnectionString("VideotekaConnection");
 
             // Konfigurace SQLite databáze
-            builder.Services.AddDbContext<VideotekaContext>(options =>
+            _ = builder.Services.AddDbContext<VideotekaContext>(options =>
                 options.UseSqlite(connectionString));
 
             //  Pøidání služeb do kontejneru
-            builder.Services.AddRazorPages(); // Pøidání Razor Pages
+            _ = builder.Services.AddRazorPages(); // Pøidání Razor Pages
 
-            var app = builder.Build();
+            WebApplication app = builder.Build();
 
             // Inicializace databáze s migracemi a logováním chyb
-            using (var scope = app.Services.CreateScope())
+            using (IServiceScope scope = app.Services.CreateScope())
             {
-                var services = scope.ServiceProvider;
+                IServiceProvider services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<VideotekaContext>();
+                    VideotekaContext context = services.GetRequiredService<VideotekaContext>();
                     context.Database.Migrate(); // Použijte migrace místo EnsureCreated
                 }
                 catch (Exception ex)
                 {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    ILogger<Program> logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "Chyba pøi migraci databáze.");
                 }
             }
@@ -45,23 +44,23 @@ namespace VideotekaApp
             // Konfigurace HTTP požadavku
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Films/Error");
-                app.UseHsts();
+                _ = app.UseExceptionHandler("/Films/Error");
+                _ = app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            _ = app.UseHttpsRedirection();
+            _ = app.UseStaticFiles();
 
-            app.UseRouting();
+            _ = app.UseRouting();
 
-            app.UseAuthorization();
+            _ = app.UseAuthorization();
 
             // Nastavení výchozí cesty (routy) - aplikace se spustí v controlleru Films a akci Index
             // app.MapControllerRoute(
-               // name: "default",
-               // pattern: "{controller=Films}/{action=Index}/{id?}");
+            // name: "default",
+            // pattern: "{controller=Films}/{action=Index}/{id?}");
 
-            app.MapRazorPages(); // Mapování Razor Pages
+            _ = app.MapRazorPages(); // Mapování Razor Pages
 
             app.Run();  // Spuštìní aplikace
         }

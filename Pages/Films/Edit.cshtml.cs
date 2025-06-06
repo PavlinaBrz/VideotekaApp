@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VideotekaApp.Data;
 using VideotekaApp.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace VideotekaApp.Pages.Films
 {
@@ -55,7 +52,7 @@ namespace VideotekaApp.Pages.Films
                 return Page();
             }
 
-            var filmToUpdate = await _context.Films.FindAsync(Film.ID);
+            Film? filmToUpdate = await _context.Films.FindAsync(Film.ID);
             if (filmToUpdate == null)
             {
                 return NotFound();
@@ -67,7 +64,7 @@ namespace VideotekaApp.Pages.Films
             filmToUpdate.Genre = Film.Genre;
             filmToUpdate.Rating = Film.Rating;
 
-            await _context.SaveChangesAsync();
+            _ = await _context.SaveChangesAsync();
             return RedirectToPage("Index");
         }
     }

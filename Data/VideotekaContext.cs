@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using VideotekaApp.Models;
 
 /// <summary>
@@ -24,15 +25,16 @@ namespace VideotekaApp.Data
             base.OnModelCreating(modelBuilder);
 
             // Nastavení výchozích hodnot a omezení pro tabulku Films
-            modelBuilder.Entity<Film>(entity =>
+            _ = modelBuilder.Entity<Film>(entity =>
             {
-                entity.HasKey(e => e.ID); // Nastavení primárního klíče pro tabulku Films
-                entity.Property(e => e.Title).IsRequired().HasMaxLength(60); // Nastavení výchozích hodnot a omezení pro sloupec Title
-                entity.Property(e => e.ReleaseYear).IsRequired(); // Nastavení výchozích hodnot a omezení pro sloupec ReleaseYear
-                entity.Property(e => e.Genre).IsRequired().HasMaxLength(30); // Nastavení výchozích hodnot a omezení pro sloupec Genre
-                entity.Property(e => e.Rating).IsRequired(); // Nastavení výchozích hodnot a omezení pro sloupec Rating
+                _ = entity.HasKey(e => e.ID); // Nastavení primárního klíče pro tabulku Films
+                _ = entity.Property(e => e.Title).IsRequired().HasMaxLength(60); // Nastavení výchozích hodnot a omezení pro sloupec Title
+                _ = entity.Property(e => e.ReleaseYear).IsRequired(); // Nastavení výchozích hodnot a omezení pro sloupec ReleaseYear
+                _ = entity.Property(e => e.Genre).IsRequired().HasMaxLength(30); // Nastavení výchozích hodnot a omezení pro sloupec Genre
+                _ = entity.Property(e => e.Rating).IsRequired(); // Nastavení výchozích hodnot a omezení pro sloupec Rating
 
             });
         }
+        public DbSet<UserRanking> UserRankings { get; set; }
     }
 }

@@ -16,7 +16,7 @@
             }
         </select>
     </form>
-    <a asp-page="Create" class="btn btn-success shadow-sm">+ Přidat nový film</a>
+    <a asp-page="Create" class="btn btn-danger shadow-sm">+ Přidat nový film</a>
 </div>
 
 <div class="card shadow-sm">
@@ -64,6 +64,7 @@
 <div class="pagination mt-4">
     @for (int i = 1; i <= Model.TotalPages; i++)
     {
-        <a asp-page="./Index" asp-route-pageIndex="@i" class="btn @(i == Model.CurrentPage ? "btn-primary" : "btn-outline-primary") me-1">@i</a>
+        <a asp-page="./Index" asp-route-pageIndex="@i"
+           class="btn @(i == Model.CurrentPage ? "btn-accent" : "btn-outline-accent") me-1">@i</a>
     }
 </div>

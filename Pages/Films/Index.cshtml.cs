@@ -2,8 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using VideotekaApp.Data;
 using VideotekaApp.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace VideotekaApp.Pages.Films
 {
@@ -27,13 +25,15 @@ namespace VideotekaApp.Pages.Films
             AllGenres = await _context.Films.Select(f => f.Genre).Distinct().OrderBy(g => g).ToListAsync();
             SelectedGenre = genre;
 
-            var totalCount = await _context.Films.CountAsync();
+            int totalCount = await _context.Films.CountAsync();
             TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
             CurrentPage = pageIndex;
 
-            var query = _context.Films.AsQueryable();
+            IQueryable<Film> query = _context.Films.AsQueryable();
             if (!string.IsNullOrEmpty(genre))
+            {
                 query = query.Where(f => f.Genre == genre);
+            }
 
             Films = await query
                 .OrderBy(f => f.Title)
