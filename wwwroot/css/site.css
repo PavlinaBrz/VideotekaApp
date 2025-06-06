@@ -52,12 +52,31 @@ a {
     border-radius: 25px;
     border: 1px solid #ff0000;
     padding: 0;
-
 }
 
-.top3-card p,
-.top3-card span,
-.top3-card li {
+.navbar-nav, .nav-link {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-right: 2.2rem;
+}
+
+.navbar-link-light {
+    color: #F1C40F !important;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.navbar-link-light.active,
+.navbar-link-light:hover,
+.navbar-link-light:focus {
+    color: #ffe066 !important;
+}
+
+.nav-link:last-child {
+    margin-right: 0; /* poslední odkaz bez mezery vpravo */
+}
+
+.top3-card p, .top3-card span, .top3-card li {
     color: var(--text-secondary) !important;
 }
 
@@ -84,17 +103,6 @@ a {
     color: #212121;
 }
 
-.navbar-link-light {
-    color: #F1C40F !important;
-    font-weight: 600;
-    transition: color 0.2s;
-}
-
-.navbar-link-light.active,
-.navbar-link-light:hover,
-.navbar-link-light:focus {
-    color: #ffe066 !important;
-}
 
 button.btn-link {
     text-decoration: none !important;
