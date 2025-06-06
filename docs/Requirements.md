@@ -1,29 +1,25 @@
-V rámci tohoto projektu jsou definovány následující funkèní a nefunkèní poadavky:
+# Requirements – VideotekaApp
 
-**Funkèní poadavky:**
-- Seznam filmù:
-  Uivatel musí bıt schopen zobrazit seznam všech filmù uloenıch v databázi.
-- Pøidání filmu:
-  Uivatel musí mít monost vyplnit formuláø a uloit novı film. Validace:
-  1. Název:
-     Délka 2 a 60 znakù, povinnı.
-  2. Rok vydání:
-     Hodnota mezi 1900 a 2025, povinnı.
-  3. ánr:
-     Délka 3 a 30 znakù, povinnı.
-  4. Hodnocení:
-     Celé èíslo mezi 1 a 10, povinné.
-- Úprava filmu:
-  Uivatel musí bıt schopen upravit údaje existujícího filmu a zmìny uloit do databáze.
-- Smazání filmu:
-  Uivatel musí mít monost smazat film z databáze, pøièem pøed smazáním bude vyadováno potvrzení.
-- 
-**Nefunkèní poadavky:**
-- Bezpeènost:
-  Aplikace by mìla vyuívat HTTPS a zabezpeèené pøipojení k databázi.
-- Vıkon:
-  Pouití asynchronních operací zajišuje, e aplikace je responzivní a dobøe škálovatelná.
-- Uivatelská pøívìtivost:
-  I kdy není kladen dùraz na grafiku, formuláøe a navigace by mìly bıt pøehledné a intuitivní.
-- Modularita a údrba:
-  Aplikace by mìla bıt dobøe strukturovaná (architektura MVC), aby bylo snadné pøidávat nové funkce a upravovat existující kód.
+## Funkèní poadavky
+- Uivatel mùe zobrazit seznam všech filmù.
+- Uivatel mùe pøidat novı film s názvem, rokem vydání, ánrem a hodnocením (1–10).
+- Uivatel mùe upravit údaje o existujícím filmu.
+- Uivatel mùe smazat film.
+- Uivatel mùe zobrazit základní statistiky o filmech.
+- Uivatel mùe tvoøit a upravovat svùj ebøíèek filmù (pøidávat, mìnit poøadí, mazat).
+
+## Nefunkèní poadavky
+- Aplikace pobìí na .NET 8 a vyuívá Razor Pages.
+- Databáze je SQLite, vytváøí se automaticky.
+- Uivatelské rozhraní je responzivní a pøehledné (Bootstrap 5).
+- Kód je psán v C# 12.
+
+## Technické poadavky
+- Visual Studio 2022 nebo novìjší.
+- .NET 8 SDK.
+- Operaèní systém: Windows, Linux nebo macOS.
+- Pøipojení k internetu pro staení NuGet balíèkù.
+
+## Omezení
+- Není implementováno pøihlašování uivatelù (ebøíèek je pro uivatele "demo").
+- Aplikace je urèena pro lokální pouití nebo vıuku.
