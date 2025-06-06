@@ -43,11 +43,9 @@ else
                             <input type="number" name="positions[@item.FilmID]" value="@item.Position" min="1" max="@Model.UserRankings.Count" class="form-control" />
                         </td>
                         <td class="text-center align-middle">
-                            <form method="post" asp-page-handler="Delete" asp-route-filmId="@item.FilmID" style="display:inline;">
-                                <button type="submit" class="btn btn-link text-danger p-0" title="Odebrat">
-                                    &#10006;
-                                </button>
-                            </form>
+                            <button type="submit" formaction="?handler=Delete&filmId=@item.FilmID" formmethod="post" class="btn btn-link text-danger p-0" title="Odebrat">
+                                &#10006;
+                            </button>
                         </td>
                     </tr>
                 }
